@@ -13,6 +13,7 @@ export default function GroupBDashboard() {
     async function fetchSubmissions() {
       try {
         const res = await axios.get("${import.meta.env.VITE_BACKEND_URI}/api/all-submissions");
+        const submissionsData = Array.isArray(res.data) ? res.data : res.data.submissions || [];
         setSubmissions(res.data);
       } catch (err) {
         console.error("Error fetching submissions:", err);
@@ -76,7 +77,7 @@ export default function GroupBDashboard() {
           </tr>
         </thead>
         <tbody>
-          {submissions.length > 0 ? (
+          {Array.isArray(submissions) && submissions.length > 0 ? (
             submissions.map((submission, index) => (
               <tr key={submission._id}>
                 <td>{index + 1}</td>

@@ -12,7 +12,8 @@ export default function GroupBDashboard() {
   useEffect(() => {
     async function fetchSubmissions() {
       try {
-        const res = await axios.get("${import.meta.env.VITE_BACKEND_URI}/api/all-submissions");
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/all-submissions`);
+        
         const submissionsData = Array.isArray(res.data) ? res.data : res.data.submissions || [];
         setSubmissions(res.data);
       } catch (err) {

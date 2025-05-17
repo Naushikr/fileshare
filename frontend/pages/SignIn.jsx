@@ -15,7 +15,7 @@ export default function Signin() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/api/signin', formData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/signin`, formData);
       const { user } = response.data;
 
       // Store user in localStorage

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_BACKEND_URI);
 
 export default function GroupADashboard() {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -18,7 +18,7 @@ export default function GroupADashboard() {
   const fetchSubmissions = async () => {
     if (!user?.id) return;
     try {
-      const res = await axios.get(`http://localhost:3000/api/my-submissions/${user.id}`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/my-submissions/${user.id}`);
       setSubmissions(res.data);
     } catch (err) {
       console.error("Error fetching submissions:", err);
@@ -66,7 +66,7 @@ export default function GroupADashboard() {
 
     try {
       setIsSubmitting(true);
-      await axios.post('http://localhost:3000/api/submit-file', formData);
+      await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/submit-file`, formData);
       alert("Submitted!");
       setFile(null);
       setMessage('');
@@ -116,7 +116,7 @@ export default function GroupADashboard() {
                   <td>{sub._id}</td>
                   <td>
                     <a
-                      href={`http://localhost:3000/uploads/${sub.fileName}`}
+                      href={`${import.meta.env.VITE_BACKEND_URI}/uploads/${sub.fileName}`}
                       rel="noopener noreferrer"
                       download={sub.fileName}
                       target='_blank'

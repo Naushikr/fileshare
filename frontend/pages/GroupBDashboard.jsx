@@ -3,7 +3,7 @@ import axios from "axios";
 import Navbar from '../components/Navbar';
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io(import.meta.env.VITE_BACKEND_URI);
 
 export default function GroupBDashboard() {
   const user = JSON.parse(localStorage.getItem('user')); // Group B user
@@ -12,7 +12,7 @@ export default function GroupBDashboard() {
   useEffect(() => {
     async function fetchSubmissions() {
       try {
-        const res = await axios.get("http://localhost:3000/api/all-submissions");
+        const res = await axios.get("${import.meta.env.VITE_BACKEND_URI}/api/all-submissions");
         setSubmissions(res.data);
       } catch (err) {
         console.error("Error fetching submissions:", err);
@@ -45,7 +45,7 @@ export default function GroupBDashboard() {
   
   const updateStatus = async (id, status) => {
     try {
-      const res = await axios.put(`http://localhost:3000/api/update-status/${id}`, {
+      const res = await axios.put(`${import.meta.env.VITE_BACKEND_URI}/api/update-status/${id}`, {
         status,
         updatedBy: user.name, // Send the user ID or name
       });
@@ -82,7 +82,7 @@ export default function GroupBDashboard() {
                 <td>{index + 1}</td>
                 <td>
                   <a
-                    href={`http://localhost:3000/uploads/${submission.fileName}`}
+                    href={`${import.meta.env.VITE_BACKEND_URI}/uploads/${submission.fileName}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     download

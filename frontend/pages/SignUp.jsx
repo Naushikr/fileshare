@@ -21,7 +21,7 @@ export default function Signup() {
 
     try {
       // Replace this URL with your backend signup endpoint
-      const response = await axios.post('http://localhost:3000/api/signup', formData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/signup`, formData);
       alert('Signup successful!');
       console.log(response.data);
       navigate('/signin')
